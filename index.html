@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gali-Business - Gestion des Employés</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="rhNameModal" class="modal">
+        <div class="modal-content small-modal">
+            <h2>Bienvenue, Responsable RH</h2>
+            <p>Veuillez entrer votre nom pour commencer :</p>
+            <div class="form-group">
+                <label for="rhNameInput">Votre Nom :</label>
+                <input type="text" id="rhNameInput" placeholder="Ex: Jean Dupont" required>
+            </div>
+            <div class="form-actions" style="text-align: center;">
+                <button class="btn primary-btn" id="saveRhNameBtn">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="path/to/your/logo.png" alt="Gali-Business Logo">
+            <h2>Gali-Business</h2>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-home"></i> Tableau de Bord</a></li>
+                <li><a href="#" class="nav-link" data-section="employee-list"><i class="fas fa-users"></i> Liste des Employés</a></li>
+                <li><a href="#" class="nav-link" data-section="salaries-section"><i class="fas fa-money-bill-wave"></i> Gestion des Salaires</a></li>
+                <li><a href="#" class="nav-link" data-section="statistics"><i class="fas fa-chart-bar"></i> Statistiques RH</a></li>
+                <li><a href="#" class="nav-link" data-section="blacklist"><i class="fas fa-ban"></i> Liste Noire</a></li>
+                <li><a href="#" class="nav-link" data-section="settings"><i class="fas fa-cog"></i> Paramètres</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <i class="fas fa-bars menu-toggle"></i>
+            <h1>Système de Gestion du Personnel</h1>
+            <div class="header-info">
+                <span id="rhNameDisplay"></span>
+                <span id="currentDateTime"></span>
+            </div>
+        </header>
+
+        <section id="dashboard" class="content-section active">
+            <h2>Tableau de Bord</h2>
+            <div class="dashboard-grid">
+                <div class="card stat-card">
+                    <h3>Total Employés</h3>
+                    <p id="dashboardTotalEmployees">0</p>
+                    <button class="btn primary-btn" id="ctaAddEmployee"><i class="fas fa-user-plus"></i> Ajouter Employé</button>
+                </div>
+                <div class="card stat-card">
+                    <h3>Employés Actifs</h3>
+                    <p id="dashboardActiveEmployees">0</p>
+                    <button class="btn print-btn" id="dashboardPrintList"><i class="fas fa-print"></i> Imprimer la Liste</button>
+                </div>
+                <div class="card stat-card">
+                    <h3>Liste Noire</h3>
+                    <p id="dashboardBlacklisted">0</p>
+                    <button class="btn quick-access-btn" data-section="blacklist"><i class="fas fa-external-link-alt"></i> Accéder</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="employee-list" class="content-section">
+            <h2>Liste des Employés</h2>
+            <div class="section-actions">
+                <input type="text" id="employeeSearchInput" placeholder="Rechercher un employé...">
+                <button class="btn primary-btn" id="showFormBtn"><i class="fas fa-user-plus"></i> Ajouter un Employé</button>
+                <button class="btn print-btn" id="printListBtn"><i class="fas fa-print"></i> Imprimer la Liste</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Photo</th>
+                            <th>Nom & Prénoms</th>
+                            <th>Date de Naissance</th>
+                            <th>Âge</th>
+                            <th>Sexe</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Sit. Matrimoniale</th>
+                            <th>Date de Recrutement</th>
+                            <th>Secteur / Poste</th>
+                            <th>Type d'Entreprise</th>
+                            <th>Salaire de Base</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="salaries-section" class="content-section">
+            <h2>Gestion des Salaires</h2>
+            <div class="section-actions salary-filters">
+                <label for="salary-year-filter">Année:</label>
+                <input type="number" id="salary-year-filter" class="form-select" placeholder="Ex: 2025" min="1900" max="2100">
+                <label for="salary-month-filter">Mois:</label>
+                <select id="salary-month-filter" class="form-select">
+                    <option value="">Tous les Mois</option>
+                    <option value="1">Janvier</option>
+                    <option value="2">Février</option>
+                    <option value="3">Mars</option>
+                    <option value="4">Avril</option>
+                    <option value="5">Mai</option>
+                    <option value="6">Juin</option>
+                    <option value="7">Juillet</option>
+                    <option value="8">Août</option>
+                    <option value="9">Septembre</option>
+                    <option value="10">Octobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Décembre</option>
+                </select>
+                <label for="company-type-filter">Type d'Entreprise:</label>
+                <select id="company-type-filter" class="form-select">
+                    <option value="">Tous</option>
+                    </select>
+                <button class="btn primary-btn" id="SalaryBtn"><i class="fas fa-play"></i>calcul les Salaires</button>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card summary-card">
+                    <h3>Masse Salariale Nette Totale</h3>
+                    <p><strong id="total-filtered-payroll">0 FCFA</strong></p>
+                </div>
+                <div class="card summary-card">
+                    <h3>Nombre d'Employés Payés</h3>
+                    <p><strong id="num-paid-employees">0</strong></p>
+                </div>
+            </div>
+
+            <div class="table-container" style="margin-top: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom Employé</th>
+                            <th>Type d'Entreprise</th>
+                            <th>Salaire de Base</th>
+                            <th>Bonus</th>
+                            <th>Déductions</th>
+                            <th>Salaire Net</th>
+                            <th>Mois</th>
+                            <th>Année</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salaries-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="statistics" class="content-section">
+            <h2>Statistiques RH</h2>
+            <div class="statistics-grid">
+                <div class="card stat-item">
+                    <h3>Vue d'Ensemble</h3>
+                    <ul>
+                        <li>Total des Employés: <strong id="totalEmployeesCount">0</strong></li>
+                        <li>Âge Moyen: <strong id="averageAge">0</strong> ans</li>
+                        <li>Ancienneté Moyenne: <strong id="averageTenure">0</strong> ans</li>
+                    </ul>
+                </div>
+                <div class="card stat-item">
+                    <h3>Répartition par Sexe</h3>
+                    <ul>
+                        <li>Masculin: <strong id="maleCount">0</strong></li>
+                        <li>Féminin: <strong id="femaleCount">0</strong></li>
+                        <li>Autre: <strong id="otherGenderCount">0</strong></li>
+                    </ul>
+                </div>
+                <div class="card stat-item">
+                    <h3>Statut Matrimonial</h3>
+                    <ul id="maritalStatusStats">
+                        </ul>
+                </div>
+                <div class="card stat-item">
+                    <h3>Répartition par Secteur / Poste</h3>
+                    <ul id="sectorStats">
+                        </ul>
+                </div>
+                <div class="card stat-item">
+                    <h3>Événements à Venir</h3>
+                    <h4>Prochains Anniversaires (30 jours)</h4>
+                    <ul id="upcomingBirthdays">
+                        </ul>
+                </div>
+                <div class="card stat-item">
+                    <h3>Recrutements Récents (90 jours)</h3>
+                    <ul id="recentHires">
+                        </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="blacklist" class="content-section">
+            <h2>Liste Noire</h2>
+            <div class="section-actions">
+                <input type="text" id="blacklistSearchInput" placeholder="Rechercher par nom ou ajouter...">
+                <button class="btn danger-btn" id="addByNameToBlacklistBtn"><i class="fas fa-user-times"></i> Ajouter au Blacklist</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Photo</th>
+                            <th>Nom Employé</th>
+                            <th>Ancien Salaire de Base</th>
+                            <th>Motif</th>
+                            <th>Date de Mise</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blacklistTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="settings" class="content-section">
+            <h2>Paramètres</h2>
+            <div class="card">
+                <h3>Gestion du Responsable RH</h3>
+                <p>Le nom du responsable RH actuel est affiché en haut de la page.</p>
+                <button class="btn secondary-btn" id="changeRhNameBtn"><i class="fas fa-user-edit"></i> Changer le Nom RH</button>
+            </div>
+            <div class="card" style="margin-top: 20px;">
+                <h3>Gestion des Données</h3>
+                <p>Option pour réinitialiser toutes les données de l'application (employés, salaires, blacklist).</p>
+                <button class="btn danger-btn" id="resetAllDataBtn" style="margin-top: 10px;"><i class="fas fa-exclamation-triangle"></i> Réinitialiser Toutes les Données</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="employeeFormModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close-button">&times;</span>
+            <h2 id="modalFormTitle">Ajouter un Nouvel Employé</h2>
+            <form id="employeeForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nom">Nom & Prénoms :</label>
+                        <input type="text" id="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateNaissance">Date de Naissance :</label>
+                        <input type="date" id="dateNaissance" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexe">Sexe :</label>
+                        <select id="sexe" required>
+                            <option value="">Sélectionner</option>
+                            <option value="Masculin">Masculin</option>
+                            <option value="Féminin">Féminin</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">Téléphone :</label>
+                        <input type="tel" id="tel" placeholder="Ex: +242xxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse">Adresse :</label>
+                        <input type="text" id="adresse" placeholder="Ex: 123 Rue de la Paix" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="matrimoniale">Situation Matrimoniale :</label>
+                        <select id="matrimoniale" required>
+                            <option value="">Sélectionner</option>
+                            <option value="Célibataire">Célibataire</option>
+                            <option value="Marié(e)">Marié(e)</option>
+                            <option value="Divorcé(e)">Divorcé(e)</option>
+                            <option value="Veuf(ve)">Veuf(ve)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="secteurTravail">Secteur / Poste :</label>
+                        <input type="text" id="secteurTravail" placeholder="Ex: Marketing, Comptabilité" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateRecrutement">Date de Recrutement :</label>
+                        <input type="date" id="dateRecrutement" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="typeEntreprise">Type d'Entreprise :</label>
+                        <input type="text" id="typeEntreprise" placeholder="Ex: Informatique, BTP" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="salaireBase">Salaire de Base (FCFA) :</label>
+                        <input type="number" id="salaireBase" min="0" required>
+                    </div>
+                    <div class="form-group photo-upload-group">
+                        <label for="photo">Photo :</label>
+                        <input type="file" id="photo" accept="image/*">
+                        <img id="photoPreview" src="#" alt="Aperçu Photo" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">Enregistrer</button>
+                    <button type="button" class="btn secondary-btn" id="cancelFormBtn">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

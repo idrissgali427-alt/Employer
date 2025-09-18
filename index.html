@@ -9,6 +9,29 @@
 </head>
 <body>
 
+<script>
+//debut ducode
+
+        // Le code de protection est la première chose qui s'exécute
+        const motDePasseCorrect = '00E1';
+        const motDePasseSaisi = prompt('Veuillez entrer le mot de passe :');
+
+        if (motDePasseSaisi !== motDePasseCorrect) {
+            alert('Mot de passe incorrect. Accès refusé.');
+            window.location.href = ''; // Redirection immédiate
+        } else {
+            console.log('Accès autorisé ! Chargement de l\'application...');
+        }
+//fin du code
+
+    </script>
+
+
+
+
+
+    
+
     <div id="rhNameModal" class="modal">
         <div class="modal-content small-modal">
             <h2>Bienvenue, Responsable RH</h2>
@@ -321,4 +344,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
